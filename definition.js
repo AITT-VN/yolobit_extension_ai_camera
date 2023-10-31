@@ -208,7 +208,7 @@ Blockly.Python['ai_result'] = function(block) {
   var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
-  var code = 'camera.get_result()' + dropdown_option + string;
+  var code = 'camera.get_prediction()' + dropdown_option + string;
   return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -233,7 +233,7 @@ Blockly.Python['ai_update'] = function(block) {
   var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
-  var code = 'camera.update_result()\n';
+  var code = 'camera.update_prediction()\n';
   return code;
 };
 
@@ -255,6 +255,6 @@ Blockly.Python['camera_read_data'] = function(block) {
   // TODO: Assemble Python into code variable.
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
-  var code = 'camera.get_result()';
+  var code = 'camera.get_prediction()';
   return [code, Blockly.Python.ORDER_NONE];
 };

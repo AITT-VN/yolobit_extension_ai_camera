@@ -1,6 +1,6 @@
 {
-    "name": "UART",
-    "description": "Mục mở rộng để làm việc với kết nối UART",
+    "name": "AI CAMERA",
+    "description": "Mục mở rộng để làm việc với Camera AI",
     "libs": [
     ],
     "blocks": [

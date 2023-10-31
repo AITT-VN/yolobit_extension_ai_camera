@@ -1,5 +1,5 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-  <category id="uart" name="UART" colour="#0b5394" icon="plug">
+  <category id="uart" name="AI CAMERA" colour="#0b5394" icon="camera">
     <block type="uart_init">
       <value name="BAUDRATE">
         <shadow type="math_number">
@@ -7,35 +7,13 @@
         </shadow>
       </value>
     </block>
-    <block type="uart_read_until">
+    <block type="camera_read_data">
       <value name="END_CHAR">
         <shadow type="text">
           <field name="TEXT">\n</field>
         </shadow>
       </value>
     </block>
-    <block type="uart_write_string">
-      <value name="MESSAGE">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-    </block>
-    <block type="uart_read_bytes">
-      <value name="BYTES">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="uart_write_bytes">
-      <value name="BYTES">
-        <shadow type="text">
-          <field name="TEXT">0xAA,0x00,0x00,0x00</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="uart_check_data" />
-    <!-- <block type="uart_deinit" /> -->
+    <block type="camera_check_data" />
   </category>
 </xml>

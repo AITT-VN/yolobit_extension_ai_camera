@@ -4,8 +4,8 @@ Blockly.Blocks['uart_init'] = {
   init: function() {
     this.jsonInit(
       {
-        type: "uart_init",
-        message0: "khởi tạo UART chân RX %1 chân TX %2 baudrate %3",
+        type: "camera_init",
+        message0: "khởi tạo AI Camera chân RX %1 chân TX %2 baudrate %3",
         previousStatement: null,
         nextStatement: null,
         args0: [
@@ -164,14 +164,14 @@ Blockly.Blocks['uart_init'] = {
           }
         ],
         colour: ColorBlock,
-        tooltip: "khởi tạo kết nối UART",
+        tooltip: "",
         helpUrl: ""
       }
     );
   }
 };
 
-Blockly.Python['uart_init'] = function(block) {
+Blockly.Python['camera_init'] = function(block) {
   // TODO: Assemble Python into code variable.
   var tx = block.getFieldValue('TX');
   var rx = block.getFieldValue('RX');
@@ -182,12 +182,12 @@ Blockly.Python['uart_init'] = function(block) {
   return code;
 };
 
-Blockly.Blocks["uart_read_until"] = {
+Blockly.Blocks["camera_read_data"] = {
   init: function () {
     this.jsonInit({
       colour: ColorBlock,
-      tooltip: "đọc dữ liệu từ UART",
-      message0: "đọc UART cho đến ký tự %1",
+      tooltip: "",
+      message0: "đọc dữ liệu AI từ camera đến ký tự %1",
       output: null,
       args0: [
         {
@@ -213,7 +213,7 @@ Blockly.Blocks["uart_read_until"] = {
   },
 };
 
-Blockly.Python['uart_read_until'] = function(block) {
+Blockly.Python['camera_read_data'] = function(block) {
   // TODO: Assemble Python into code variable.
   var eol = block.getFieldValue('END_CHAR');
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
@@ -234,104 +234,12 @@ Blockly.Python['uart_read_until'] = function(block) {
   var code = cbFunctionName + '("' + eol + '")';
   return [code, Blockly.Python.ORDER_NONE];
 };
-
-Blockly.Blocks["uart_write_string"] = {
+Blockly.Blocks["camera_check_data"] = {
   init: function () {
     this.jsonInit({
       colour: ColorBlock,
-      nextStatement: null,
-      tooltip: "gửi dữ liệu qua UART",
-      message0: "gửi chuỗi %1 %2 qua UART",
-      previousStatement: null,
-      args0: [
-        {
-          type: "input_dummy",
-        },
-        {
-          type: "input_value",
-          name: "MESSAGE",
-        },
-      ],
-      helpUrl: "",
-    });
-  },
-};
-
-Blockly.Python['uart_write_string'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  var msg = Blockly.Python.valueToCode(block, 'MESSAGE', Blockly.Python.ORDER_ATOMIC);
-  var code = 'uart.write(str(' + msg + '))\n';
-  return code;
-};
-
-Blockly.Blocks["uart_read_bytes"] = {
-  init: function () {
-    this.jsonInit({
-      colour: ColorBlock,
-      tooltip: "đọc n bytes từ UART",
-      message0: "đọc UART %1 %2 bytes ",
-      output: null,
-      args0: [
-        {
-          type: "input_dummy",
-        },
-        {
-          type: "input_value",
-          name: "BYTES",
-        },
-      ],
-      helpUrl: "",
-    });
-  },
-};
-
-Blockly.Python['uart_read_bytes'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  var bytes = Blockly.Python.valueToCode(block, 'BYTES', Blockly.Python.ORDER_ATOMIC);
-  var code = 'uart.read(' + bytes + ')';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-Blockly.Blocks["uart_write_bytes"] = {
-  init: function () {
-    this.jsonInit({
-      colour: ColorBlock,
-      nextStatement: null,
-      tooltip: "gửi dữ liệu dạng byte vào UART",
-      message0: "gửi bytes %1 %2 qua UART",
-      previousStatement: null,
-      args0: [
-        {
-          type: "input_dummy",
-        },
-        {
-          type: "input_value",
-          name: "BYTES",
-        }
-      ],
-      helpUrl: "",
-    });
-  },
-};
-
-Blockly.Python['uart_write_bytes'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  Blockly.Python.definitions_['import_ubinascii'] = 'import ubinascii';
-  var bytes = Blockly.Python.valueToCode(block, 'BYTES', Blockly.Python.ORDER_ATOMIC);
-  var bytes_after = bytes.split(",");
-  bytes_after =  bytes.split(" ");
-  console.log(bytes_after);
-  //var code = 'uart.write(bytearray([' + bytes.split(",") + ']))\n';
-  var code = 'uart.write(bytearray([' + bytes_after + ']))\n';
-  return code;
-};
-
-Blockly.Blocks["uart_check_data"] = {
-  init: function () {
-    this.jsonInit({
-      colour: ColorBlock,
-      tooltip: "kiểm tra xem có dữ liệu gửi đến UART hay không",
-      message0: "có dữ liệu gửi đến UART?",
+      tooltip: "",
+      message0: "có dữ liệu gửi từ camera ?",
       output: null,
       args0: [
       ],
@@ -340,31 +248,8 @@ Blockly.Blocks["uart_check_data"] = {
   },
 };
 
-Blockly.Python['uart_check_data'] = function(block) {
+Blockly.Python['camera_check_data'] = function(block) {
   // TODO: Assemble Python into code variable.
   var code = 'uart.any()';
   return [code, Blockly.Python.ORDER_NONE];
-};
-
-
-
-Blockly.Blocks["uart_deinit"] = {
-  init: function () {
-    this.jsonInit({
-      colour: ColorBlock,
-      nextStatement: null,
-      tooltip: "tắt và hủy kết nối UART",
-      message0: "tắt kết nối UART",
-      previousStatement: null,
-      args0: [
-      ],
-      helpUrl: "",
-    });
-  },
-};
-
-Blockly.Python['uart_deinit'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  var code = 'uart.deinit()\n';
-  return code;
 };

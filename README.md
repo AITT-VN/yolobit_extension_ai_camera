@@ -1,2 +1,2 @@
-# yolobit_extension_uart
-Mục mở rộng để làm việc với kết nối UART
+# yolobit_extension_ai_camera
+Mục mở rộng để làm việc với AI Camera

@@ -5,7 +5,7 @@ Blockly.Blocks['camera_init'] = {
     this.jsonInit(
       {
         type: "camera_init",
-        message0: "khởi tạo AI Camera chân RX %1 chân TX %2 baudrate %3",
+        message0: "khởi tạo AI Camera RX %1 TX %2",
         previousStatement: null,
         nextStatement: null,
         args0: [
@@ -156,11 +156,6 @@ Blockly.Blocks['camera_init'] = {
                 "pin16"
               ]
             ]
-          },
-          {
-            "type": "field_number",
-            "name": "BAUDRATE",
-            "value": 115200
           }
         ],
         colour: ColorBlock,
@@ -175,36 +170,30 @@ Blockly.Python['camera_init'] = function(block) {
   // TODO: Assemble Python into code variable.
   var tx = block.getFieldValue('TX');
   var rx = block.getFieldValue('RX');
-  var baudrate = block.getFieldValue('BAUDRATE');
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
-  Blockly.Python.definitions_['import_machine'] = 'import machine';
-  var code = 'uart = machine.UART(2, baudrate=' + baudrate + ', rx=' + rx + '.pin, tx=' + tx + '.pin); uart.init(parity=None, stop=1, bits=8)\n';
+  Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
+  var code = 'camera = AICAMERA(' + rx + '.pin, ' + tx + '.pin)\n';
   return code;
 };
 
-Blockly.Blocks["camera_read_data"] = {
+Blockly.Blocks["ai_result"] = {
   init: function () {
     this.jsonInit({
       colour: ColorBlock,
       tooltip: "",
-      message0: "đọc dữ liệu AI từ camera đến ký tự %1",
-      output: null,
+      message0: "kết quả AI đọc được %2 %1",
+      output: "Boolean",
       args0: [
         {
+          type: "input_value",
+          name: "string"          
+        },
+        {
           type: "field_dropdown",
-          name: "END_CHAR",
+          name: "option",
           options: [
-            ["xuống dòng", "\\n"],
-            [",", ","],
-            ["$", "$"],
-            [":", ":"],
-            [".", "."],
-            ["#", "#"],
-            ["CR", "\\r"],
-            ["khoảng trắng", " "],
-            ["tab", "\\t"],
-            ["|", "|"],
-            [";", ";"],
+            ["là", "=="],
+            ["không phải là", "!="],
           ],
         }
       ],
@@ -213,33 +202,47 @@ Blockly.Blocks["camera_read_data"] = {
   },
 };
 
-Blockly.Python['camera_read_data'] = function(block) {
+Blockly.Python['ai_result'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var eol = block.getFieldValue('END_CHAR');
+  var dropdown_option = block.getFieldValue('option');
+  var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
-  
-  var cbFunctionName = Blockly.Python.provideFunction_(
-    'uart_read_until',
-    ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(eol):',
-      "  result = ''",
-      "  while uart.any():",
-      "    new_char = uart.read(1).decode()",
-      "    if new_char == eol:",
-      "      return result",
-      "    else:",
-      "      result += str(new_char)",
-      "  return result",
-    ]);
-  
-  var code = cbFunctionName + '("' + eol + '")';
+  Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
+  var code = 'camera.get_result()' + dropdown_option + string;
   return [code, Blockly.Python.ORDER_NONE];
 };
-Blockly.Blocks["camera_check_data"] = {
+
+Blockly.Blocks["ai_update"] = {
+  init: function () {
+    this.jsonInit({
+      previousStatement: null,
+      nextStatement: null,
+      colour: ColorBlock,
+      tooltip: "",
+      message0: "cập nhật kết quả AI",
+      args0: [
+        
+      ],
+      helpUrl: "",
+    });
+  },
+};
+
+Blockly.Python['ai_update'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
+  Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
+  Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
+  var code = 'camera.update_result()\n';
+  return code;
+};
+
+Blockly.Blocks["camera_read_data"] = {
   init: function () {
     this.jsonInit({
       colour: ColorBlock,
       tooltip: "",
-      message0: "có dữ liệu gửi từ camera ?",
+      message0: "đọc kết quả AI",
       output: null,
       args0: [
       ],
@@ -248,8 +251,10 @@ Blockly.Blocks["camera_check_data"] = {
   },
 };
 
-Blockly.Python['camera_check_data'] = function(block) {
+Blockly.Python['camera_read_data'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var code = 'uart.any()';
+  Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
+  Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
+  var code = 'camera.get_result()';
   return [code, Blockly.Python.ORDER_NONE];
 };

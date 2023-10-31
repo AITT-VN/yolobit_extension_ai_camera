@@ -2,6 +2,7 @@
     "name": "AI CAMERA",
     "description": "Mục mở rộng để làm việc với Camera AI",
     "libs": [
+        "camera_ai.py"
     ],
     "blocks": [
         "definition.js"

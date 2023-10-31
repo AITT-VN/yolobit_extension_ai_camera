@@ -7,13 +7,17 @@
         </shadow>
       </value>
     </block>
-    <block type="camera_read_data">
-      <value name="END_CHAR">
+    <block type="ai_result">
+      <value name="string">
         <shadow type="text">
-          <field name="TEXT">\n</field>
+          <field name="TEXT">nhom 1</field>
         </shadow>
       </value>
     </block>
-    <block type="camera_check_data" />
+    <block type="ai_update">
+    </block>
+    <block type="camera_read_data">
+    </block> 
+       
   </category>
 </xml>

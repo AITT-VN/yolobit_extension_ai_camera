@@ -1,6 +1,6 @@
 const ColorBlock = "#0b5394";
 
-Blockly.Blocks['uart_init'] = {
+Blockly.Blocks['camera_init'] = {
   init: function() {
     this.jsonInit(
       {

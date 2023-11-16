@@ -230,7 +230,7 @@ Blockly.Blocks["ai_update"] = {
 
 Blockly.Python['ai_update'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
+  //var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
   var code = 'camera.update_prediction()\n';
@@ -242,9 +242,17 @@ Blockly.Blocks["camera_read_data"] = {
     this.jsonInit({
       colour: ColorBlock,
       tooltip: "",
-      message0: "đọc kết quả AI",
+      message0: "đọc %1 AI",
       output: null,
       args0: [
+        {
+          type: "field_dropdown",
+          name: "option",
+          options: [
+            ["tên", "classname"],
+            ["độ tin cậy", "reliability"],
+          ],
+        }
       ],
       helpUrl: "",
     });
@@ -253,8 +261,13 @@ Blockly.Blocks["camera_read_data"] = {
 
 Blockly.Python['camera_read_data'] = function(block) {
   // TODO: Assemble Python into code variable.
+  var dropdown_option = block.getFieldValue('option');
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
-  var code = 'camera.get_prediction()';
+  var code = ''
+  if (dropdown_option == "classname")
+    code = 'camera.get_prediction()';
+  else
+    code = 'camera.get_reliability()';
   return [code, Blockly.Python.ORDER_NONE];
 };

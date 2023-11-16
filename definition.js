@@ -187,14 +187,6 @@ Blockly.Blocks["ai_result"] = {
         {
           type: "input_value",
           name: "string"          
-        },
-        {
-          type: "field_dropdown",
-          name: "option",
-          options: [
-            ["là", "=="],
-            ["không phải là", "!="],
-          ],
         }
       ],
       helpUrl: "",
@@ -204,7 +196,6 @@ Blockly.Blocks["ai_result"] = {
 
 Blockly.Python['ai_result'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var dropdown_option = block.getFieldValue('option');
   var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
@@ -243,15 +234,7 @@ Blockly.Blocks["camera_get_classname"] = {
       colour: ColorBlock,
       tooltip: "",
       message0: "kết quả nhận dạng",
-      output: null,
-      args0: [
-        {
-          type: "field_dropdown",
-          name: "option",
-          options: [
-          ],
-        }
-      ],
+      output: null,      
       helpUrl: "",
     });
   },
@@ -273,14 +256,6 @@ Blockly.Blocks["camera_get_prediction"] = {
       tooltip: "",
       message0: "độ tin cậy",
       output: null,
-      args0: [
-        {
-          type: "field_dropdown",
-          name: "option",
-          options: [
-          ],
-        }
-      ],
       helpUrl: "",
     });
   },

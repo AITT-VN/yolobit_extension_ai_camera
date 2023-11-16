@@ -266,8 +266,8 @@ Blockly.Python['camera_read_data'] = function(block) {
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
   var code = ''
   if (dropdown_option == "classname")
-    code = 'camera.get_prediction()';
+    code = 'camera.get_classname()';
   else
-    code = 'camera.get_reliability()';
+    code = 'camera.get_prediction())';
   return [code, Blockly.Python.ORDER_NONE];
 };

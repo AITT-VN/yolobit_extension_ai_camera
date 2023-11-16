@@ -242,15 +242,13 @@ Blockly.Blocks["camera_get_classname"] = {
     this.jsonInit({
       colour: ColorBlock,
       tooltip: "",
-      message0: "đọc %1 AI",
+      message0: "kết quả nhận dạng",
       output: null,
       args0: [
         {
           type: "field_dropdown",
           name: "option",
           options: [
-            ["tên", "classname"],
-            ["độ tin cậy", "reliability"],
           ],
         }
       ],
@@ -273,15 +271,13 @@ Blockly.Blocks["camera_get_prediction"] = {
     this.jsonInit({
       colour: ColorBlock,
       tooltip: "",
-      message0: "đọc %1 AI",
+      message0: "độ tin cậy",
       output: null,
       args0: [
         {
           type: "field_dropdown",
           name: "option",
           options: [
-            ["tên", "classname"],
-            ["độ tin cậy", "reliability"],
           ],
         }
       ],

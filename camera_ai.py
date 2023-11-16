@@ -11,9 +11,8 @@ class AICAMERA:
   def update_prediction(self):
     if self.uart.any():
       try:
-        current_classname, current_prediction = str(self.uart.readline()[:-1].decode('utf-8')).split(";")
-        self.current_classname = current_classname
-        self.current_prediction = float(current_prediction)*100
+        self.current_classname, self.current_prediction = str(self.uart.readline()[:-1].decode('utf-8')).split(";")
+        self.current_prediction = float(self.current_prediction)*100
       except:
         self.current_classname = ''
         self.current_prediction = 0
@@ -28,5 +27,6 @@ class AICAMERA:
     return self.current_prediction
     
     
+
 
 

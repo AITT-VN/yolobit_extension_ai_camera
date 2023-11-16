@@ -181,7 +181,7 @@ Blockly.Blocks["ai_result"] = {
     this.jsonInit({
       colour: ColorBlock,
       tooltip: "",
-      message0: "kết quả AI đọc được %2 %1",
+      message0: "kết quả nhận dạng có chứa %1",
       output: "Boolean",
       args0: [
         {
@@ -208,7 +208,7 @@ Blockly.Python['ai_result'] = function(block) {
   var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
-  var code = 'camera.get_prediction()' + dropdown_option + string;
+  var code = 'camera.camera.get_classname() == ' + string;
   return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -237,7 +237,7 @@ Blockly.Python['ai_update'] = function(block) {
   return code;
 };
 
-Blockly.Blocks["camera_read_data"] = {
+Blockly.Blocks["camera_get_classname"] = {
   init: function () {
     this.jsonInit({
       colour: ColorBlock,
@@ -259,15 +259,42 @@ Blockly.Blocks["camera_read_data"] = {
   },
 };
 
-Blockly.Python['camera_read_data'] = function(block) {
+Blockly.Python['camera_get_classname'] = function(block) {
   // TODO: Assemble Python into code variable.
   var dropdown_option = block.getFieldValue('option');
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
-  var code = ''
-  if (dropdown_option == "classname")
-    code = 'camera.get_classname()';
-  else
-    code = 'camera.get_prediction())';
+  var code = 'camera.get_classname()';  
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks["camera_get_prediction"] = {
+  init: function () {
+    this.jsonInit({
+      colour: ColorBlock,
+      tooltip: "",
+      message0: "đọc %1 AI",
+      output: null,
+      args0: [
+        {
+          type: "field_dropdown",
+          name: "option",
+          options: [
+            ["tên", "classname"],
+            ["độ tin cậy", "reliability"],
+          ],
+        }
+      ],
+      helpUrl: "",
+    });
+  },
+};
+
+Blockly.Python['camera_get_prediction'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var dropdown_option = block.getFieldValue('option');
+  Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
+  Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
+  var code = 'camera.get_prediction()';  
   return [code, Blockly.Python.ORDER_NONE];
 };

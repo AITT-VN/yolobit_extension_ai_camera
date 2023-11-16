@@ -16,7 +16,9 @@
     </block>
     <block type="ai_update">
     </block>
-    <block type="camera_read_data">
+    <block type="camera_get_classname">
+    </block> 
+    <block type="camera_get_prediction">
     </block> 
        
   </category>

@@ -242,7 +242,6 @@ Blockly.Blocks["camera_get_classname"] = {
 
 Blockly.Python['camera_get_classname'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var dropdown_option = block.getFieldValue('option');
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
   var code = 'camera.get_classname()';  
@@ -263,7 +262,6 @@ Blockly.Blocks["camera_get_prediction"] = {
 
 Blockly.Python['camera_get_prediction'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var dropdown_option = block.getFieldValue('option');
   Blockly.Python.definitions_['import_yolobit'] = 'from yolobit import *';
   Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
   var code = 'camera.get_prediction()';  

@@ -176,6 +176,30 @@ Blockly.Python['ai_camera_init'] = function(block) {
   return code;
 };
 
+Blockly.Blocks['ai_camera_init_mobile_app'] = {
+  init: function() {
+    this.jsonInit(
+      {
+        type: "ai_camera_init",
+        message0: "khởi tạo Camera AI dùng OhStem App",
+        previousStatement: null,
+        nextStatement: null,
+        args0: [],
+        colour: ColorBlock,
+        tooltip: "",
+        helpUrl: ""
+      }
+    );
+  }
+};
+
+Blockly.Python['ai_camera_init_mobile_app'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  Blockly.Python.definitions_['import_camera_ai'] = 'from camera_ai import *';
+  var code = 'ai_cam = AI_CAMERA()\n';
+  return code;
+};
+
 Blockly.Blocks["ai_camera_check_result"] = {
   init: function () {
     this.jsonInit({
